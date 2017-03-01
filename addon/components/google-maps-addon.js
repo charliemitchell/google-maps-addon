@@ -9,7 +9,8 @@ export default Ember.Component.extend({
 
   setupMapElement: Ember.on('didInsertElement', function() {
     this.map.initializeOptions();
-
+    // Allow component to be accessed via register-as=someControllerName
+    this.set('register-as', this);
     // Checking for the availability of Google Maps JavaScript SDK, the hero
     Ember.run.later(() => {
       if (window.google) {
