@@ -12,14 +12,15 @@ export default Ember.Component.extend({
     // Allow component to be accessed via register-as=someControllerName
     this.set('register-as', this);
     // Checking for the availability of Google Maps JavaScript SDK, the hero
-    Ember.run.later(() => {
-      if (window.google) {
-        this.set('mapElement', this.map.createMapElement());
-
-        this.updateMapOptions();
-        this.updateShapes();
-      } else {
-        console.error('Please include the Google Maps JavaScript SDK.');
+    Ember.run.next(() => {
+      if ( !(this.get('isDestroyed') || this.get('isDestroying')) ) {
+        if (window.google) {
+          this.set('mapElement', this.map.createMapElement());
+          this.updateMapOptions();
+          this.updateShapes();
+        } else {
+          console.error('Please include the Google Maps JavaScript SDK.');
+        }
       }
     });
   }),
