@@ -35,7 +35,11 @@ export default Ember.Object.extend(ShapesManager, {
 
     const mapOptions = Ember.merge(defaultOptions, providedOptions);
 
-    let mapElement = this.owner.$('div.map-canvas')[0];
+    let mapElement = this.owner.$('div.map-canvas') && this.owner.$('div.map-canvas')[0];
+
+    if (!mapElement) {
+      mapElement = document.createElement('div');
+    }
 
     this.set("map", new google.maps.Map(mapElement, mapOptions));
     return this.get("map");
